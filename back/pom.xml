@@ -42,6 +42,16 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.5</version>
+				<!-- configuration pour exclure du coverage les tests sur le model car 
+				ce n'est pas pertinent de tester le package model, et ça diminue le coverage: 
+					
+					<configuration>
+				    <excludes>
+				        <exclude>com/openclassrooms/bobapp/model/**</exclude>
+				        
+				    </excludes>
+				</configuration> -->
+				
 				<executions>
 					<execution>
 						<goals>

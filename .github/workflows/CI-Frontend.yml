@@ -13,8 +13,11 @@ on:
       - main
 
 jobs:
+
   compilation-frontend__executions-tests__generation-rapport-coverage:
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Copier le code du Repository vers la Machine Virtuelle ubuntu
         uses: actions/checkout@v4
@@ -37,6 +40,12 @@ jobs:
         with:
           name: dossier-rapport-tests-frontend-coverage
           path: front/coverage
+
+      - name: Envoyer le code à Sonar pour qu'il l'analyse
+        run: npx sonar-scanner
+        working-directory: front
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       
         

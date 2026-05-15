@@ -13,8 +13,11 @@ on:
       - main
 
 jobs:
+
   compilation-backend__executions-tests__generation-rapport-jacoco:
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Copier le code du Repository vers la Machine Virtuelle ubuntu
         uses: actions/checkout@v4
@@ -34,6 +37,12 @@ jobs:
         with:
           name: dossier-rapport-tests-backend-jacoco
           path: back/target/site/jacoco
+
+      - name: Envoyer le code à Sonar pour qu'il l'analyse
+        run: mvn sonar:sonar
+        working-directory: back
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       
         

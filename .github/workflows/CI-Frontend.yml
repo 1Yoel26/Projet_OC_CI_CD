@@ -29,7 +29,7 @@ jobs:
         working-directory: front
 
       - name: Executer les tests et générer le rapport avec Coverage
-        run: npm run test -- --watch=false --code-coverage
+        run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless
         working-directory: front
 
       - name: Télécharger le rapport Coverage sur GitHub pour pouvoir le consulter

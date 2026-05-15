@@ -1,29 +1,44 @@
-name: CI sur le backend avec Jacoco pour le coverage
+# Compiler/Lancer l'app backend
+# Lancer les tests backend
+# Generer le rapport de Jacoco
 
+name: CI pour le Backend Java
 on: 
   push:
-    branches: 
+    branches:
       - main
-    paths:
-      - 'back/**'
-jobs: 
-  lancement-test-backend:
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compilation-backend__executions-tests__generation-rapport-jacoco:
     runs-on: ubuntu-latest
-
     steps:
-       - name: Récupérer le code du repository
-         uses: actions/checkout@v4
+      - name: Copier le code du Repository vers la Machine Virtuelle ubuntu
+        uses: actions/checkout@v4
 
-       - name: Installer Java
-         uses: actions/setup-java@v4
-         with:
-           distribution: 'temurin'
-           java-version: '17'
+      - name: Installer Java sur la VM ubuntu
+        uses: actions/setup-java@v4
+        with: 
+          distribution: temurin
+          java-version: 17
 
-       - name: Lancer les tests et générer le coverage Jacoco
-         run: mvn clean verify
-         working-directory: back
+      - name: Executer les tests et générer le rapport avec Jacoco
+        run: mvn clean verify
+        working-directory: back
+
+      - name: Télécharger le rapport Jacoco sur GitHub pour pouvoir le consulter
+        uses: actions/upload-artifact@v4
+        with:
+          name: dossier-rapport-tests-backend-jacoco
+          path: back/target/site/jacoco
+
+      
+        
 
 
 
-            
+
+

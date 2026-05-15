@@ -1,0 +1,47 @@
+# Compiler/Lancer l'app frontend
+# Lancer les tests front end
+# Generer le rapport de Coverage
+
+name: CI pour le Frontend Angular
+on: 
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compilation-frontend__executions-tests__generation-rapport-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copier le code du Repository vers la Machine Virtuelle ubuntu
+        uses: actions/checkout@v4
+
+      - name: Installer NodeJs sur la VM ubuntu
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 18
+
+      - name: Installer les dépendances pour le Frontend
+        run: npm install
+        working-directory: front
+
+      - name: Executer les tests et générer le rapport avec Coverage
+        run: npm run test -- --watch=false --code-coverage
+        working-directory: front
+
+      - name: Télécharger le rapport Coverage sur GitHub pour pouvoir le consulter
+        uses: actions/upload-artifact@v4
+        with:
+          name: dossier-rapport-tests-frontend-coverage
+          path: front/coverage
+
+      
+        
+
+
+
+
+

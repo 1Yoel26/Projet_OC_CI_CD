@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dossier-rapport-tests-frontend-coverage
-          path: front/coverage
+          path: front/bobapp/coverage
 
       - name: Envoyer le code à Sonar pour qu'il l'analyse
         run: npx sonar-scanner

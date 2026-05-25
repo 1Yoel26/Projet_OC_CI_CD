@@ -1,8 +1,13 @@
+# Compiler/Lancer l'app backend
+# Lancer les tests backend
+# Generer le rapport de Jacoco
+
 # Compiler/Lancer l'app frontend
 # Lancer les tests front end
 # Generer le rapport de Coverage
 
-name: CI pour le Frontend Angular
+name: CI pour le Backend + Frontend
+
 on: 
   push:
     branches:
@@ -13,6 +18,39 @@ on:
       - main
 
 jobs:
+
+  compilation-backend__executions-tests__generation-rapport-jacoco:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Copier le code du Repository vers la Machine Virtuelle ubuntu
+        uses: actions/checkout@v4
+
+      - name: Installer Java sur la VM ubuntu
+        uses: actions/setup-java@v4
+        with: 
+          distribution: temurin
+          java-version: 17
+
+      - name: Executer les tests et générer le rapport avec Jacoco
+        run: mvn clean verify
+        working-directory: back
+
+      - name: Télécharger le rapport Jacoco sur GitHub pour pouvoir le consulter
+        uses: actions/upload-artifact@v4
+        with:
+          name: dossier-rapport-tests-backend-jacoco
+          path: back/target/site/jacoco
+
+      - name: Installer Sonar-scanner
+        run: npm install -g sonar-scanner
+
+      - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
+        run: sonar-scanner
+        working-directory: back
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   compilation-frontend__executions-tests__generation-rapport-coverage:
 
@@ -46,11 +84,3 @@ jobs:
         working-directory: front
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      
-        
-
-
-
-
-

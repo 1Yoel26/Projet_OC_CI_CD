@@ -43,11 +43,8 @@ jobs:
           name: dossier-rapport-tests-backend-jacoco
           path: back/target/site/jacoco
 
-      - name: Installer Sonar-scanner
-        run: npm install -g sonar-scanner
-
       - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
-        run: sonar-scanner
+        run: mvn sonar:sonar
         working-directory: back
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

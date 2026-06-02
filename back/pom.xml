@@ -15,7 +15,9 @@
 	<description>L'application de joke par excellence !</description>
 	<properties>
 		<java.version>11</java.version>
+
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -37,13 +39,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.5</version>
+				<version>0.8.11</version>
 				<!-- configuration pour exclure du coverage les tests sur le model car 
 				ce n'est pas pertinent de tester le package model, et ça diminue le coverage: 
 					
@@ -78,3 +76,6 @@
 		</plugins>
 	</build>
 </project>
+
+
+

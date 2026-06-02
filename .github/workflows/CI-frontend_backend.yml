@@ -44,11 +44,12 @@ jobs:
           path: back/target/site/jacoco
 
       - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
-        run:  mvn clean verify sonar:sonar ^
-              -Dsonar.projectKey=1Yoel26_Projet_OC_CI_CD ^
-              -Dsonar.organization=1yoel26 ^
-              -Dsonar.host.url=https://sonarcloud.io ^
-              -Dsonar.login=1Yoel26_Projet_OC_CI_CD
+        run:  mvn clean verify sonar:sonar \
+              -Dsonar.projectKey=1Yoel26_Projet_OC_CI_CD \
+              -Dsonar.organization=1yoel26 \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
 
         working-directory: back
         env:

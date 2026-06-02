@@ -45,7 +45,7 @@ jobs:
 
       - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
         run: | 
-           mvn clean verify sonar:sonar \
+           mvn sonar:sonar \
               -Dsonar.projectKey=1Yoel26_Projet_OC_CI_CD \
               -Dsonar.organization=1yoel26 \
               -Dsonar.host.url=https://sonarcloud.io \

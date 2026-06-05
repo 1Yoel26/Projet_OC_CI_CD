@@ -66,7 +66,7 @@ jobs:
           java-version: 17
 
       - name: Envois du code vers SonarCloud Scan via une GitHub Action
-        uses: SonarSource/sonarcloud-github-action@v1
+        uses: SonarSource/sonarcloud-github-action@v5.0.0
        
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -43,18 +43,14 @@ jobs:
           name: dossier-rapport-tests-backend-jacoco
           path: back/target/site/jacoco
 
-      - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
+      - name: Envoyer le code à SonarCloud pour le backend, pour qu'il l'analyse
         run: | 
           mvn verify sonar:sonar \
-            -Dsonar.projectKey=1Yoel26_Projet_OC_CI_CD \
+            -Dsonar.projectKey=1Yoel26_bobapp-back \
             -Dsonar.organization=1yoel26 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.sources=src/main/java,../front/src/app \
-            -Dsonar.tests=src/test/java,../front/src/app \
-            -Dsonar.test.inclusions=**/*Test.java,**/*.spec.ts \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
-            -Dsonar.javascript.lcov.reportPaths=../front/coverage/bobapp/lcov.info
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
         working-directory: back
 
         env:
@@ -86,3 +82,19 @@ jobs:
         with:
           name: dossier-rapport-tests-frontend-coverage
           path: front/coverage/bobapp
+
+      - name: Envoyer le code à SonarCloud pour le frontend, pour qu'il l'analyse
+        run: | 
+          npx sonar-scanner \
+            -Dsonar.projectKey=1Yoel26_bobapp-front \
+            -Dsonar.organization=1yoel26 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.sources=src \
+            -Dsonar.tests=src \
+            -Dsonar.test.inclusions=**/*.spec.ts \
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+        working-directory: front
+
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

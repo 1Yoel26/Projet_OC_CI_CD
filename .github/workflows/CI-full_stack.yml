@@ -66,7 +66,7 @@ jobs:
           java-version: 17
 
       - name: Envois du code vers SonarCloud Scan via une GitHub Action
-        uses: SonarSource/sonarcloud-github-action@v1.12.0
+        uses: SonarSource/sonarcloud-github-action@v1
         with:
           projectKey: 1yoel26
           organization: 1Yoel26

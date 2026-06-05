@@ -50,10 +50,11 @@ jobs:
             -Dsonar.organization=1yoel26 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-
-
-
+            -Dsonar.sources=src/main/java,../front/src \
+            -Dsonar.tests=src/test/java,../front/src \
+            -Dsonar.test.inclusions=**/*Test.java,**/*.spec.ts \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+            -Dsonar.javascript.lcov.reportPaths=../front/coverage/bobapp/lcov.info
         working-directory: back
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -83,10 +84,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dossier-rapport-tests-frontend-coverage
-          path: front/bobapp/coverage
-
-      - name: Envoyer le code à Sonar pour qu'il l'analyse
-        run: npx sonar-scanner
-        working-directory: front
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          path: front/coverage/bobapp

@@ -67,9 +67,7 @@ jobs:
 
       - name: Envois du code vers SonarCloud Scan via une GitHub Action
         uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          projectKey: 1yoel26
-          organization: 1Yoel26
+       
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

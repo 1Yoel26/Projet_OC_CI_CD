@@ -45,17 +45,16 @@ jobs:
 
       - name: Envoyer le code à SonarCloud via sonar-scanner, pour qu'il l'analyse
         run: | 
-           mvn verify sonar:sonar \
+          mvn verify sonar:sonar \
             -Dsonar.projectKey=1Yoel26_Projet_OC_CI_CD \
             -Dsonar.organization=1yoel26 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.sources=src/main/java,../front/src \
-            -Dsonar.tests=src/test/java,../front/src \
-            -Dsonar.test.inclusions=**/*Test.java,**/*.spec.ts \
+            -Dsonar.sources=src/main/java \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
             -Dsonar.javascript.lcov.reportPaths=../front/coverage/bobapp/lcov.info
         working-directory: back
+        
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

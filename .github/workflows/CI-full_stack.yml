@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  backend-tests:
+  Executions_tests_backend:
     runs-on: ubuntu-latest
     steps:
       # 1. Récupérer le code source du repository
@@ -27,3 +27,25 @@ jobs:
       - name: Exécuter tests backend + générer Jacoco
         run: mvn clean verify
         working-directory: back
+
+
+  Executions_tests_frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source du repository
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Installer dépendances frontend
+        run: npm ci  # plus optimisé que npm install pour le CI CD
+        working-directory: front
+
+      - name: Exécuter tests frontend avec coverage
+        run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless
+        working-directory: front
+
+      

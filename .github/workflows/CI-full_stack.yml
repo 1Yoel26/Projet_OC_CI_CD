@@ -28,6 +28,13 @@ jobs:
         run: mvn clean verify
         working-directory: back
 
+      # 4. Téléchargement du rapport Jacoco (pour le donner à Sonar plus tard)
+      - name: Téléchargement du rapport Jacoco
+        uses: actions/upload-artifact@v3
+        with:
+          name: telechargement-rapport-jacoco
+          path: back/target/site/jacoco/jacoco.xml
+
 
   Executions_tests_frontend: # 2em sous job executé en parallèle sur une MV2
     runs-on: ubuntu-latest
@@ -47,6 +54,13 @@ jobs:
       - name: Exécuter tests frontend avec coverage
         run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless # car l'execution des tests en CI est sans interface graphique du navigateur, et sans ça ça peut causer une erreur.
         working-directory: front
+
+      # Téléchargement du rapport Coverage (pour le donner à Sonar plus tard)
+      - name: Téléchargement du rapport Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: telechargement-rapport-coverage
+          path: front/coverage/bobapp/lcov.info
 
 
   Envois_vers_SonarCloud:
@@ -68,6 +82,18 @@ jobs:
       - name: Compiler backend pour Sonar
         run: mvn clean compile
         working-directory: back
+
+      - name: Récupération du rapport Jacoco téléchargé
+        uses: actions/download-artifact@v3
+        with:
+          name: telechargement-rapport-jacoco
+          path: back/target/site/jacoco
+
+      - name: Récupération du rapport Coverage téléchargé
+        uses: actions/download-artifact@v3
+        with:
+          name: telechargement-rapport-coverage
+          path: front/coverage/bobapp
 
       - name: Envois du code vers SonarCloud Scan via une GitHub Action
         uses: SonarSource/sonarcloud-github-action@v5.0.0

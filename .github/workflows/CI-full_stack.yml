@@ -95,6 +95,10 @@ jobs:
           name: telechargement-rapport-coverage
           path: front/coverage/bobapp
 
+      - name: Correction / par \ pour linux
+        run: sed -i 's|\\|/|g' front/coverage/bobapp/lcov.info
+        
+
       - name: TEST Vérifier contenu coverage frontend
         run: ls -l front/coverage/bobapp
 

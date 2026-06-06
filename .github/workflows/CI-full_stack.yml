@@ -95,6 +95,9 @@ jobs:
           name: telechargement-rapport-coverage
           path: front/coverage/bobapp
 
+      - name: TEST Vérifier contenu coverage frontend
+        run: ls -l front/coverage/bobapp
+
       - name: Envois du code vers SonarCloud Scan via une GitHub Action
         uses: SonarSource/sonarcloud-github-action@v5.0.0
        

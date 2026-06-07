@@ -82,21 +82,19 @@ jobs:
       - name: Compiler backend pour Sonar
         run: mvn clean compile
         working-directory: back
-
-      - name: Récupération du rapport Jacoco téléchargé
-        uses: actions/download-artifact@v4
-        with:
-          name: telechargement-rapport-jacoco
-          path: back/target/site/jacoco
+      
+      
+      #- name: Récupération du rapport Jacoco téléchargé
+      #  uses: actions/download-artifact@v4
+      #  with:
+      #    name: telechargement-rapport-jacoco
+      #    path: back/target/site/jacoco
 
       - name: Récupération du rapport Coverage téléchargé
         uses: actions/download-artifact@v4
         with:
           name: telechargement-rapport-coverage
           path: front/coverage/bobapp
-
-      - name: Correction / par \ pour linux
-        run: sed -i 's|\\|/|g' front/coverage/bobapp/lcov.info
         
 
       - name: TEST Vérifier contenu coverage frontend

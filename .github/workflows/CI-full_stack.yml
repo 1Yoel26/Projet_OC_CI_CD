@@ -79,9 +79,9 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      #- name: Compiler backend pour Sonar
-      #  run: mvn clean compile
-      #  working-directory: back
+      - name: Compiler backend pour Sonar
+        run: mvn clean verify
+        working-directory: back
       
       
       - name: Récupération du rapport Jacoco téléchargé
@@ -100,8 +100,8 @@ jobs:
       - name: TEST Vérifier contenu coverage frontend
         run: ls -l front/coverage/bobapp
 
-      - name: Envois du code vers SonarCloud Scan via une GitHub Action
-        uses: SonarSource/sonarcloud-github-action@v5.0.0
+      - name: Execution de sonar-scanner à la racine du projet pour analyser le front et le back
+        run: npx sonar-scanner
        
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

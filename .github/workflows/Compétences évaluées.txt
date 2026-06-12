@@ -1,0 +1,150 @@
+Compétences évaluées
+
+1. Garantir un produit de qualité en automatisant la compilation et les tests
+
+Non validé
+
+Commentaires :
+
+Tu n’as pas su expliquer précisément le fonctionnement de certaines étapes de ton workflow.
+
+Il est important de comprendre le rôle de chaque étape et d’être capable de justifier sa présence dans la pipeline CI/CD : ce qu’elle fait, à quel moment elle s’exécute, quel résultat elle produit et ce qui se passe en cas d’échec.
+
+Concernant le job Sonarcloud du backend:
+
+Le rapport de couverture des tests généré par JaCoCo n’est pas transmis à SonarCloud.
+
+Le paramètre suivant est manquant :
+
+-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+Par conséquent, la couverture des tests du backend n’est pas correctement prise en compte dans SonarCloud.
+
+Concernant la stratégie CI/CD:
+
+Le workflow a été conçu sans suffisamment tenir compte du contexte de la mission.
+
+Bob indique notamment :
+
+« En outre, le fait d’automatiser encouragera plus de gens à participer au développement de l’application et rapportera de meilleurs commentaires, car cela éliminera des blocages. »
+
+Cela laisse entendre que plusieurs développeurs pourront participer au développement de l’application. Il est donc nécessaire de mettre en place une pipeline CI/CD fiable et adaptée au travail collaboratif.
+
+Le workflow actuel n’est pas conforme pour plusieurs raisons :
+
+aucun développeur ne doit pouvoir pousser directement du code sur la branche main;
+le passage par une Pull Request doit être obligatoire ;
+les contrôles automatisés doivent être exécutés avant la fusion du code ;
+les images Docker ne doivent pas être publiées avant la validation de la Pull Request.
+Actuellement, les images Docker sont publiées automatiquement sur Docker Hub lors d’un push ou d’une Pull Request vers la branche main, avant même la validation et la fusion de la Pull Request.
+
+Cette approche est risquée : elle permet de publier des images Docker sans garantir au préalable que le code a été correctement testé, relu et validé.
+
+Dans une pipeline CI/CD fiable, le code doit d’abord passer par une Pull Request vers main. Les contrôles obligatoires doivent être validés avant le merge, notamment :
+
+l’analyse SonarCloud ;
+les tests unitaires ;
+la vérification du build de l’image Docker du frontend ;
+la vérification du build de l’image Docker du backend.
+Les images Docker doivent être publiées sur Docker Hub uniquement après la validation et la fusion de la Pull Request.
+
+Ce que tu dois retenir: Fonctionnement minimal attendu
+
+Pendant la Pull Request vers main (en plus de ce que tu as déjà fait) :
+
+le rapport de couverture JaCoCo du backend doit être transmis à SonarCloud ;
+le build de l’image Docker du frontend doit être vérifié ;
+le build de l’image Docker du backend doit être vérifié ;
+toutes les étapes doivent être validées avant d’autoriser le merge.
+Après la validation et la fusion de la Pull Request :
+
+les images Docker du frontend et du backend peuvent être publiées sur Docker Hub.
+2. Gérer l’intégration et la livraison continues d’un projet existant
+
+Non validé
+
+Commentaires :
+
+Le document explicatif ne présente pas suffisamment les différents outils utilisés ni le rôle précis de chacun d’entre eux.
+
+Il est nécessaire de détailler les outils mis en place dans la CI/CD et d’expliquer leur utilité, par exemple :
+
+GitHub Actions ;
+Maven ;
+npm ;
+JaCoCo ;
+SonarCloud ;
+Docker ;
+Docker Hub ;
+les artifacts GitHub Actions ;
+Analyse des retours utilisateurs:
+
+Le document explicatif doit également contenir une analyse des commentaires pertinents formulés par les utilisateurs, par exemple :
+
+les lenteurs rencontrées ;
+les bugs non corrigés ;
+les régressions éventuelles ;
+les blocages fonctionnels ;
+les difficultés de déploiement ou de mise à disposition des corrections.
+Il faut expliquer à Bob les causes possibles de ces problèmes. Elles peuvent notamment provenir :
+
+du code applicatif ;
+d’une régression introduite lors d’une modification ;
+de tests insuffisants ;
+d’un défaut de qualité du code ;
+d’un problème de build ;
+d’un problème de déploiement ;
+d’un manque d’automatisation.
+Pour chaque problème identifié, il faut proposer des solutions concrètes.
+
+Analyses des métriques:
+
+Le document ne contient pas d’analyse précise des métriques.
+
+Il est nécessaire d’ajouter des données chiffrées et vérifiables.
+
+1)Couverture du code
+
+Tu dois indiquer séparément :
+
+le pourcentage de couverture du backend généré par JaCoCo ;
+le pourcentage de couverture du frontend généré par Angular ;
+le nombre de tests exécutés ;
+le nombre éventuel de tests en échec ;
+le seuil de couverture attendu ;
+les parties du code qui restent insuffisamment testées.
+2)Sonacloud:
+
+Tu dois présenter et analyser au minimum :
+
+le statut du Quality Gate ;
+le nombre de bugs détectés ;
+le nombre de vulnérabilités ;
+le nombre de Security Hotspots ;
+le nombre de Code Smells ;
+le taux de duplication ;
+la dette technique ;
+les niveaux de fiabilité, de sécurité et de maintenabilité.
+Il faut ensuite interpréter ces résultats.
+
+Par exemple, écrire que la « qualité globale est satisfaisante » n’est pas suffisant. Tu dois expliquer pourquoi elle est satisfaisante ou identifier les corrections encore nécessaires.
+
+Livrable
+
+Points forts:
+
+Tu a compris l’intérêt d’automatiser les contrôles avant le déploiement des images.
+Tu as bien tester que ton workflow se lance après avoir fait une demande de merge
+Axes d'amélioration (ceci n'est pas obligatoire) :
+
+Séparer les workflows en plusieurs fichiers : CI frontend, CI backend et CD. Cela améliore la lisibilité de la pipeline et évite l’exécution d’étapes inutiles.
+Utiliser des fichiers sonar-project.properties distincts pour isoler la configuration SonarCloud du frontend et celle du backend. 
+Séparer les analyses SonarCloud du backend et du frontend afin d’obtenir des indicateurs fiables, exploitables et représentatifs pour chaque partie du projet.
+Cette séparation permettrait de mieux suivre les bugs, les vulnérabilités, les Code Smells et les Quality Gates propres à chaque composant applicatif.
+
+Soutenance
+
+Remarques :
+
+Tu t’es montré coopératif et réceptif aux remarques formulées au cours de l’échange.
+Tu as su répondre à certaines questions de manière pertinente.
+Certains points nécessitent toutefois d’être approfondis afin de mieux maîtriser les choix techniques réalisés.

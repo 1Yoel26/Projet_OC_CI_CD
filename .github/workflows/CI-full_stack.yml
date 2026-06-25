@@ -10,6 +10,7 @@ on:
 
 jobs:
   Executions_tests_backend: # 1er sous job executé sur une MV1
+  
     runs-on: ubuntu-latest
     steps:
       # 1. Récupérer le code source du repository
@@ -37,6 +38,7 @@ jobs:
 
 
   Executions_tests_frontend: # 2em sous job executé en parallèle sur une MV2
+
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code source du repository
@@ -64,6 +66,7 @@ jobs:
 
 
   Envois_vers_SonarCloud:
+
     runs-on: ubuntu-latest
     needs:
       - Executions_tests_backend
@@ -103,7 +106,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+
   Creation_images_docker_et_push_vers_dockerHub:
+
     runs-on: ubuntu-latest
     needs: Envois_vers_SonarCloud
 

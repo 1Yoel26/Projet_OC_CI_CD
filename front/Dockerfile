@@ -11,7 +11,7 @@ RUN npm run build
 #   afin de pouvoir faire après http://localhost:monAppAngular
 
 # 2.1 Copy de l'app angular build, dans le dossier lisible par le serveur web nginx (pour qu'il puisse l'afficher)
-FROM nginx:Alpine
+FROM nginx:alpine
 COPY --from=BuildAppAngular /usr/local/AppFront/dist/bobapp /usr/share/nginx/html
 
 # indique pour docker que le port utilisé par nginx est :80 (http)

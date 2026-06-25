@@ -10,7 +10,7 @@ on:
 
 jobs:
   Executions_tests_backend: # 1er sous job executé sur une MV1
-  
+
     runs-on: ubuntu-latest
     steps:
       # 1. Récupérer le code source du repository
@@ -113,16 +113,16 @@ jobs:
     needs: Envois_vers_SonarCloud
 
     steps:
-      - name: Récupérer le code source
+      - name: Récupérer le code source  # pour recuperer le DockerFile
         uses: actions/checkout@v4 
 
       - name: Connection à DockerHub
-        run: echo "${{ secrets.PASSWORD_DOCKERHUB }}" | docker login -u "${{ secrets.USERNAME_DOCKERHUB }}" --password-stdin
+        run: echo "${{ secrets.TOKEN_DOCKERHUB_AVEC_WRITE }}" | docker login -u "${{ secrets.USERNAME_DOCKERHUB }}" --password-stdin
 
-      - name: Build de l'image Docker
+      - name: Build de l'image Docker  # construction de l'image docker à partir du DockerFile
         run: docker build -t ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front ./front
 
-      - name: Push de l'image sur DockerHub
+      - name: Push de l'image sur DockerHub   # envois de l'image sur DockerHub
         run: docker push ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front
 
 

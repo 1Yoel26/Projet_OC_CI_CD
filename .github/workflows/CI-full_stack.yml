@@ -119,12 +119,19 @@ jobs:
       - name: Connection à DockerHub
         run: echo "${{ secrets.TOKEN_DOCKERHUB_AVEC_WRITE }}" | docker login -u "${{ secrets.USERNAME_DOCKERHUB }}" --password-stdin
 
+      # Envois du front
       - name: Build de l'image Docker  # construction de l'image docker à partir du DockerFile
         run: docker build -t ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front ./front
 
       - name: Push de l'image sur DockerHub   # envois de l'image sur DockerHub
         run: docker push ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front
 
+      # Envois du back
+      - name: Build image Docker BACK
+        run: docker build -t ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-back ./back
+
+      - name: Push image Docker BACK
+        run: docker push ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-back
 
 
       

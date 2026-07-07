@@ -10,7 +10,7 @@ RUN npm run build
 # 2 Lancement du serveur web Nginx en mode léger avec Alpine
 #   afin de pouvoir faire après http://localhost:monAppAngular
 
-# 2.1 Copy de l'app angular build, dans le dossier lisible par le serveur web nginx (pour qu'il puisse l'afficher)
+# 2.1 Copie de l'app angular build, dans le dossier lisible par le serveur web nginx (pour qu'il puisse l'afficher)
 FROM nginx:alpine
 COPY --from=BuildAppAngular /usr/local/AppFront/dist/bobapp /usr/share/nginx/html
 

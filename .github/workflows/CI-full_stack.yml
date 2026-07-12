@@ -60,7 +60,7 @@ jobs:
         run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless # car l'execution des tests en CI est sans interface graphique du navigateur, et sans ça ça peut causer une erreur.
         working-directory: front
 
-      # Téléchargement du rapport Coverage (pour le donner à Sonar plus tard)
+      # Téléchargement du rapport Coverage (pour le donner à Sonar par la suite)
       - name: Téléchargement du rapport Coverage
         uses: actions/upload-artifact@v4
         with:

@@ -1,9 +1,7 @@
 name: CI Execution des tests Back + Front + envois à SonarCloud
 
 on:
-  push:
-    branches:
-      - main
+  
   pull_request:
     branches:
       - main
@@ -107,7 +105,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+
       # Partie à desactivé pour que le Workflow GitHub Actions réussisse avec succès jusqu'au bout:
+
       - name: Vérification du Quality Gate de SonarCloud
         uses: SonarSource/sonarqube-quality-gate-action@master
         timeout-minutes: 5 

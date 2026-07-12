@@ -105,7 +105,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # Cette partie bloque le worklow Github Actions, si le Quality Gate de SonarCloud n'est pas validé:
+
+      # Partie à desactivé pour que le Workflow GitHub Actions réussisse avec succès jusqu'au bout:
+
       - name: Vérification du Quality Gate de SonarCloud
         uses: SonarSource/sonarqube-quality-gate-action@master
         timeout-minutes: 5 
@@ -126,14 +128,14 @@ jobs:
       - name: Connection à DockerHub
         run: echo "${{ secrets.TOKEN_DOCKERHUB_AVEC_WRITE }}" | docker login -u "${{ secrets.USERNAME_DOCKERHUB }}" --password-stdin
 
-      # Envois du front
+      # Build et envois du front
       - name: Build de l'image Docker  # construction de l'image docker à partir du DockerFile
         run: docker build -t ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front ./front
 
       - name: Push de l'image sur DockerHub   # envois de l'image sur DockerHub
         run: docker push ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-front
 
-      # Envois du back
+      # Build et envois du back
       - name: Build image Docker BACK
         run: docker build -t ${{ secrets.USERNAME_DOCKERHUB }}/bobapp-back ./back
 

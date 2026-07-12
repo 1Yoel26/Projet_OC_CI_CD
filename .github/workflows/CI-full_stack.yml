@@ -1,9 +1,7 @@
 name: CI Execution des tests Back + Front + envois à SonarCloud
 
 on:
-  push:
-    branches:
-      - main
+  
   pull_request:
     branches:
       - main

@@ -36,7 +36,7 @@ jobs:
           path: back/target/site/jacoco/jacoco.xml
 
 
-  Executions_tests_frontend: # 2em sous job executé en parallèle sur une MV2
+  Executions_tests_frontend: # 2em sous job executé en parallèle sur une MV2 :
 
     runs-on: ubuntu-latest
     steps:

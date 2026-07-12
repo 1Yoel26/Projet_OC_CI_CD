@@ -107,7 +107,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # partie à desactivé pour que le Workflow GitHub Actions réussisse avec succès jusqu'au bout:
+      # Partie à desactivé pour que le Workflow GitHub Actions réussisse avec succès jusqu'au bout:
       - name: Vérification du Quality Gate de SonarCloud
         uses: SonarSource/sonarqube-quality-gate-action@master
         timeout-minutes: 5 

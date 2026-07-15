@@ -14,7 +14,7 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=BuildAppAngular /usr/local/AppFront/dist/bobapp /usr/share/nginx/html
 
-# indique pour docker que le port utilisé par nginx est le port 80 (http)
+# indique pour docker que le port utilisé par nginx est le port 80 (http) :
 EXPOSE 80
 
 

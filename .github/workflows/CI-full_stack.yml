@@ -30,7 +30,7 @@ jobs:
       # 3. Exécuter tests backend + générer Jacoco
       - name: Exécuter tests backend + générer Jacoco
         run: mvn clean verify
-        working-directory: back
+        working-directory: back   
 
       # 4. Téléchargement du rapport Jacoco (pour le donner à Sonar plus tard)
       - name: Téléchargement du rapport Jacoco

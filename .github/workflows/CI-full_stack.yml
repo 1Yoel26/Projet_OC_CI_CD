@@ -1,4 +1,4 @@
-name: CI Execution des tests Back + Front + envois à SonarCloud
+name: CI CD Execution des tests Back + Front + envois à SonarCloud + création et push des images sur DockerHub
 
 on:
     
@@ -12,7 +12,7 @@ on:
 
 
 jobs:
-  Executions_tests_backend: # 1er sous job executé sur une MV1
+  Executions_tests_backend: # 1er sous job executé sur une MV1 afin d'executer les tests front et back en parallèle :
 
     runs-on: ubuntu-latest
     steps:

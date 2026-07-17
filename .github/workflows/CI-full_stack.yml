@@ -1,4 +1,4 @@
-name: CI Execution des tests Back + Front + envois à SonarCloud
+name: CI CD Execution des tests Back + Front + envois à SonarCloud + création et push des images sur DockerHub
 
 on:
     
